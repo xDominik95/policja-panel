@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Frakcji Policji RP</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="emblem">POLICJA</div>
+    <div class="sub">Panel frakcji RP</div>
+    <nav>
+      <button class="nav active" data-view="dashboard">Pulpit</button>
+      <button class="nav" data-view="vehicles">Karty pojazdów</button>
+      <button class="nav" data-view="documents">Dokumenty</button>
+      <button class="nav" data-view="officers">Funkcjonariusze</button>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1>Komenda Policji — System ewidencji RP</h1>
+        <p>Nieoficjalny panel do rozgrywki roleplay. Dane zapisują się lokalnie w przeglądarce.</p>
+      </div>
+      <button class="primary" onclick="window.print()">Drukuj widok</button>
+    </header>
+
+    <section id="dashboard" class="view active">
+      <div class="cards">
+        <article class="card"><span id="statVehicles">0</span><p>kart pojazdów</p></article>
+        <article class="card"><span id="statDocs">0</span><p>dokumentów</p></article>
+        <article class="card"><span id="statOfficers">0</span><p>funkcjonariuszy</p></article>
+      </div>
+      <div class="panel notice">
+        <h2>Start</h2>
+        <p>Dodaj kartę pojazdu, a potem uzupełniaj rozpoczęcia i zakończenia patroli. W zakładce dokumenty utworzysz pierwsze wzory: karta zdarzenia drogowego, wniosek o ukaranie i zatrzymanie dokumentu.</p>
+      </div>
+    </section>
+
+    <section id="vehicles" class="view">
+      <div class="split">
+        <form class="panel" id="vehicleForm">
+          <h2>Nowa karta pojazdu</h2>
+          <label>Marka i model <input name="model" required placeholder="Toyota Corolla" /></label>
+          <label>Numer rejestracyjny <input name="plate" required placeholder="HPG C232" /></label>
+          <label>Kryptonim <input name="code" placeholder="86" /></label>
+          <button class="primary" type="submit">Utwórz kartę</button>
+        </form>
+        <div class="panel">
+          <h2>Lista pojazdów</h2>
+          <div id="vehicleList" class="list"></div>
+        </div>
+      </div>
+      <div id="vehicleCardArea"></div>
+    </section>
+
+    <section id="documents" class="view">
+      <div class="doc-grid">
+        <button class="doc-tile" onclick="openDoc('road')">Karta zdarzenia drogowego</button>
+        <button class="doc-tile" onclick="openDoc('punish')">Wniosek o ukaranie</button>
+        <button class="doc-tile" onclick="openDoc('seize')">Zatrzymanie dokumentu</button>
+      </div>
+      <div id="documentEditor"></div>
+    </section>
+
+    <section id="officers" class="view">
+      <form class="panel" id="officerForm">
+        <h2>Dodaj funkcjonariusza</h2>
+        <div class="form-row">
+          <label>Stopień <input name="rank" placeholder="sierż." /></label>
+          <label>Imię i nazwisko <input name="name" required /></label>
+          <label>Odznaka <input name="badge" /></label>
+        </div>
+        <button class="primary">Dodaj</button>
+      </form>
+      <div class="panel"><div id="officerList" class="list"></div></div>
+    </section>
+  </main>
+</body>
+</html>
